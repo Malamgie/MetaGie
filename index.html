@@ -12,8 +12,8 @@
         body {
             font-family: 'Inter', sans-serif;
             transition: background-color 0.5s, color 0.5s;
-            position: relative; /* Needed for the pseudo-element background */
             overflow-x: hidden; /* Prevents horizontal scroll from animation */
+            position: relative; /* Essential for placing the animation canvas */
         }
         
         /* Base styles for the light and dark modes */
@@ -28,44 +28,29 @@
         .dark .text-muted { color: #a0aec0; }
         .dark .border-primary { border-color: #5d6d8d; }
 
-        /* Highly Visible Lightning Background Effect */
-        body::before {
-            content: '';
+        /* Raining Code Animation Canvas */
+        #raining-code-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            pointer-events: none; /* Allows clicks to pass through to content */
+            z-index: -1; /* Ensures it stays behind content */
+            overflow: hidden; /* Hides drops once they fall off screen */
+        }
+
+        .code-drop {
+            position: absolute;
+            font-size: 10px; /* Tiny size */
+            opacity: 0.15; /* Faded color */
             pointer-events: none;
-            z-index: -1;
-            /* Light mode lightning */
-            background-image: repeating-linear-gradient(-45deg, transparent, rgba(255, 255, 255, 0.2) 1px, transparent 2px, transparent 10px),
-                              radial-gradient(circle at 50% 50%, rgba(100, 100, 255, 0.3), transparent 70%);
-            background-size: 50% 50%, 150% 150%;
-            background-repeat: no-repeat;
-            background-position: center center, 50% 50%;
-            animation: lightning-strike 15s linear infinite,
-                       lightning-flash 2s infinite;
+            white-space: nowrap; /* Keep words on one line */
+            color: rgba(100, 100, 255, 0.4); /* Light mode subtle blue */
         }
 
-        .dark body::before {
-            /* Dark mode lightning */
-            background-image: repeating-linear-gradient(-45deg, transparent, rgba(100, 100, 255, 0.15) 1px, transparent 2px, transparent 10px),
-                              radial-gradient(circle at 50% 50%, rgba(100, 100, 255, 0.2), transparent 70%);
-        }
-
-        @keyframes lightning-strike {
-            0% { background-size: 50% 50%, 150% 150%; background-position: center center, 50% 50%; }
-            25% { background-size: 60% 60%, 120% 120%; background-position: 20% 80%, 80% 20%; }
-            50% { background-size: 70% 70%, 100% 100%; background-position: 80% 20%, 20% 80%; }
-            75% { background-size: 60% 60%, 120% 120%; background-position: 20% 80%, 80% 20%; }
-            100% { background-size: 50% 50%, 150% 150%; background-position: center center, 50% 50%; }
-        }
-
-        @keyframes lightning-flash {
-            0%, 50%, 100% { opacity: 0; }
-            45% { opacity: 1; }
-            55% { opacity: 0.5; }
+        .dark .code-drop {
+            color: rgba(150, 200, 255, 0.2); /* Dark mode subtle blue */
         }
 
         /* Custom Animations */
@@ -84,13 +69,15 @@
 </head>
 <body class="bg-base text-base min-h-screen flex flex-col items-center">
     
+    <div id="raining-code-canvas"></div>
+
     <header class="w-full max-w-7xl mx-auto p-4 md:p-8 mt-4 z-10 relative">
         <nav class="flex justify-between items-center bg-card shadow-lg rounded-full p-4">
             <h1 class="text-2xl md:text-3xl font-bold">My Portfolio</h1>
             <div class="flex items-center space-x-4 md:space-x-6">
                 <a href="#about" class="text-sm md:text-base font-medium hover:text-blue-500 transition-colors">About</a>
                 <a href="#projects" class="text-sm md:text-base font-medium hover:text-blue-500 transition-colors">Projects</a>
-                <a href="#contact" class="text-sm md:text-base font-medium hover:text-blue-500 transition-colors">Contact</a>
+                <a href="#contact" class="text-sm md::text-base font-medium hover:text-blue-500 transition-colors">Contact</a>
                 <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
                     <svg id="sun-icon" class="h-6 w-6 text-yellow-500 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -129,7 +116,7 @@
                 <div class="fade-in-up">
                     <h2 class="text-3xl font-bold mb-4">About Me</h2>
                     <p class="text-lg text-muted leading-relaxed">
-                        With over 5 years of experience, I've honed a diverse skill set that allows me to tackle complex problems from multiple angles. Whether it's crafting a pixel-perfect design, building a robust web application, or streamlining business operations, my goal is always to deliver a solution that is both beautiful and highly functional. I thrive on challenges and am constantly expanding my knowledge to stay ahead of the curve.
+                        With over 5 years of experience, I've honed a diverse skill set that allows me to tackle complex problems from multiple angles. Whether it's crafting a pixel-perfect design, building a robust web application, or streamlining business operations, my goal is always to deliver a solution that is both beautiful and highly functional. I thrive on challenges and constantly expanding my knowledge to stay ahead of the curve.
                     </p>
                 </div>
                 <div class="w-full h-full rounded-2xl overflow-hidden shadow-lg animate-pulse bg-gray-300 dark:bg-gray-700">
@@ -214,7 +201,7 @@
             }
         });
 
-        // Intersection Observer for Animations
+        // Intersection Observer for Animations (fade-in-up)
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -234,6 +221,82 @@
             observer.observe(element);
         });
 
+        // Raining Code Animation Logic
+        const canvas = document.getElementById('raining-code-canvas');
+        const phrases = ["Metagie", "0101", "dev", "<code/>", "{data}", "sync", "UX/UI", "creative"];
+        const numDrops = 50; // Number of simultaneous "drops"
+        const dropSpeed = 15; // Lower is faster
+        const dropVariance = 10; // How much speed varies
+
+        function createDrop() {
+            const drop = document.createElement('span');
+            drop.classList.add('code-drop');
+            // Randomly pick a phrase
+            drop.textContent = phrases[Math.floor(Math.random() * phrases.length)];
+            
+            // Random start position and delay
+            const startX = Math.random() * window.innerWidth;
+            const startY = -Math.random() * window.innerHeight; // Start off-screen
+            const delay = Math.random() * 5; // Stagger appearance
+
+            drop.style.left = `${startX}px`;
+            drop.style.top = `${startY}px`;
+            drop.style.animationDelay = `${delay}s`;
+
+            canvas.appendChild(drop);
+
+            // Animate the drop
+            let currentY = startY;
+            let currentX = startX;
+            const speed = dropSpeed + (Math.random() * dropVariance - dropVariance / 2); // Speed with variance
+            const lifeTime = (window.innerHeight - startY) / (window.innerHeight / speed); // Calculate lifetime based on speed
+
+            let animationFrame;
+            const animateDrop = () => {
+                currentY += 1; // Move down
+                // Add a subtle horizontal "circuit" drift
+                currentX += Math.sin(currentY * 0.05) * 0.1; 
+
+                drop.style.top = `${currentY}px`;
+                drop.style.left = `${currentX}px`;
+
+                // Fade out as it goes down
+                const opacity = 0.15 * (1 - (currentY / window.innerHeight));
+                drop.style.opacity = Math.max(0, opacity);
+                
+                // Shrink as it goes down
+                const scale = 1 - (currentY / (window.innerHeight * 1.5)); // Shrink more slowly
+                drop.style.transform = `scale(${Math.max(0.2, scale)})`;
+
+
+                if (currentY < window.innerHeight + 50) { // Keep animating until off-screen
+                    animationFrame = requestAnimationFrame(animateDrop);
+                } else {
+                    drop.remove(); // Remove element once it's off screen
+                    createDrop(); // Create a new one to keep the rain going
+                }
+            };
+            animationFrame = requestAnimationFrame(animateDrop);
+        }
+
+        // Initialize the rain
+        for (let i = 0; i < numDrops; i++) {
+            createDrop();
+        }
+
+        // Handle theme change for code drops
+        const updateCodeDropColors = () => {
+            const isDarkMode = html.classList.contains('dark');
+            document.querySelectorAll('.code-drop').forEach(drop => {
+                if (isDarkMode) {
+                    drop.style.color = 'rgba(150, 200, 255, 0.2)';
+                } else {
+                    drop.style.color = 'rgba(100, 100, 255, 0.4)';
+                }
+            });
+        };
+        themeToggleBtn.addEventListener('click', updateCodeDropColors);
+        updateCodeDropColors(); // Set initial colors
     </script>
 </body>
 </html>
