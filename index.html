@@ -12,32 +12,60 @@
         body {
             font-family: 'Inter', sans-serif;
             transition: background-color 0.5s, color 0.5s;
+            position: relative; /* Needed for the pseudo-element background */
+            overflow-x: hidden; /* Prevents horizontal scroll from animation */
+        }
+        
+        /* Base styles for the light and dark modes */
+        .light .bg-base { background-color: #f0f2f5; }
+        .light .bg-card { background-color: #ffffff; }
+        .light .text-base { color: #1e293b; }
+        .light .text-muted { color: #64748b; }
+        .light .border-primary { border-color: #3b82f6; }
+        .dark .bg-base { background-color: #1f2937; }
+        .dark .bg-card { background-color: #2d3748; }
+        .dark .text-base { color: #e2e8f0; }
+        .dark .text-muted { color: #a0aec0; }
+        .dark .border-primary { border-color: #5d6d8d; }
+
+        /* Highly Visible Lightning Background Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            /* Light mode lightning */
+            background-image: repeating-linear-gradient(-45deg, transparent, rgba(255, 255, 255, 0.2) 1px, transparent 2px, transparent 10px),
+                              radial-gradient(circle at 50% 50%, rgba(100, 100, 255, 0.3), transparent 70%);
+            background-size: 50% 50%, 150% 150%;
+            background-repeat: no-repeat;
+            background-position: center center, 50% 50%;
+            animation: lightning-strike 15s linear infinite,
+                       lightning-flash 2s infinite;
         }
 
-        /* Lightning Background Effect */
-        .lightning-bg {
-            background-color: #f0f2f5; /* Light mode base color */
-            background-image: radial-gradient(circle at 15% 50%, rgba(200, 200, 255, 0.1), transparent 50%),
-                              radial-gradient(circle at 85% 50%, rgba(200, 200, 255, 0.1), transparent 50%);
-            background-size: 200% 200%;
-            animation: lightning-light 10s ease-in-out infinite;
+        .dark body::before {
+            /* Dark mode lightning */
+            background-image: repeating-linear-gradient(-45deg, transparent, rgba(100, 100, 255, 0.15) 1px, transparent 2px, transparent 10px),
+                              radial-gradient(circle at 50% 50%, rgba(100, 100, 255, 0.2), transparent 70%);
         }
 
-        .dark .lightning-bg {
-            background-color: #1f2937; /* Dark mode base color */
-            background-image: radial-gradient(circle at 15% 50%, rgba(100, 100, 255, 0.1), transparent 50%),
-                              radial-gradient(circle at 85% 50%, rgba(100, 100, 255, 0.1), transparent 50%);
-            animation: lightning-dark 10s ease-in-out infinite;
+        @keyframes lightning-strike {
+            0% { background-size: 50% 50%, 150% 150%; background-position: center center, 50% 50%; }
+            25% { background-size: 60% 60%, 120% 120%; background-position: 20% 80%, 80% 20%; }
+            50% { background-size: 70% 70%, 100% 100%; background-position: 80% 20%, 20% 80%; }
+            75% { background-size: 60% 60%, 120% 120%; background-position: 20% 80%, 80% 20%; }
+            100% { background-size: 50% 50%, 150% 150%; background-position: center center, 50% 50%; }
         }
 
-        @keyframes lightning-light {
-            0%, 100% { background-position: 0% 50%, 100% 50%; opacity: 1; }
-            50% { background-position: 100% 50%, 0% 50%; opacity: 0.9; }
-        }
-
-        @keyframes lightning-dark {
-            0%, 100% { background-position: 0% 50%, 100% 50%; opacity: 1; }
-            50% { background-position: 100% 50%, 0% 50%; opacity: 0.9; }
+        @keyframes lightning-flash {
+            0%, 50%, 100% { opacity: 0; }
+            45% { opacity: 1; }
+            55% { opacity: 0.5; }
         }
 
         /* Custom Animations */
@@ -54,9 +82,9 @@
         }
     </style>
 </head>
-<body class="bg-base text-base min-h-screen flex flex-col items-center lightning-bg">
-
-    <header class="w-full max-w-7xl mx-auto p-4 md:p-8 mt-4">
+<body class="bg-base text-base min-h-screen flex flex-col items-center">
+    
+    <header class="w-full max-w-7xl mx-auto p-4 md:p-8 mt-4 z-10 relative">
         <nav class="flex justify-between items-center bg-card shadow-lg rounded-full p-4">
             <h1 class="text-2xl md:text-3xl font-bold">My Portfolio</h1>
             <div class="flex items-center space-x-4 md:space-x-6">
@@ -75,7 +103,7 @@
         </nav>
     </header>
 
-    <main class="w-full max-w-7xl mx-auto p-4 md:p-8 flex-grow">
+    <main class="w-full max-w-7xl mx-auto p-4 md:p-8 flex-grow z-10 relative">
         <section id="hero" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-16 md:py-24">
             <div class="fade-in-up md:text-left text-center">
                 <h2 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4 text-blue-500">
@@ -146,7 +174,7 @@
         </section>
     </main>
 
-    <footer class="w-full max-w-7xl mx-auto p-4 md:p-8 mt-auto text-center">
+    <footer class="w-full max-w-7xl mx-auto p-4 md:p-8 mt-auto text-center z-10 relative">
         <p class="text-sm text-muted">© 2024 Your Name. All rights reserved.</p>
     </footer>
 
