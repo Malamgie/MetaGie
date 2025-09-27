@@ -12,11 +12,10 @@
         body {
             font-family: 'Inter', sans-serif;
             transition: background-color 0.5s, color 0.5s;
-            overflow-x: hidden; /* Prevents horizontal scroll from animation */
-            position: relative; /* Essential for placing the animation canvas */
+            overflow-x: hidden;
+            position: relative;
         }
         
-        /* Base styles for the light and dark modes */
         .light .bg-base { background-color: #f0f2f5; }
         .light .bg-card { background-color: #ffffff; }
         .light .text-base { color: #1e293b; }
@@ -28,32 +27,30 @@
         .dark .text-muted { color: #a0aec0; }
         .dark .border-primary { border-color: #5d6d8d; }
 
-        /* Raining Code Animation Canvas */
         #raining-code-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* Allows clicks to pass through to content */
-            z-index: -1; /* Ensures it stays behind content */
-            overflow: hidden; /* Hides drops once they fall off screen */
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
         }
 
         .code-drop {
             position: absolute;
-            font-size: 10px; /* Tiny size */
-            opacity: 0.9; /* Faded color */
+            font-size: 10px;
+            opacity: 0.4; /* Increased opacity for more visibility */
             pointer-events: none;
-            white-space: nowrap; /* Keep words on one line */
-            color: rgba(100, 100, 255, 0.4); /* Light mode subtle blue */
+            white-space: nowrap;
+            color: rgba(60, 100, 255, 0.6); /* Adjusted color for better contrast */
         }
 
         .dark .code-drop {
-            color: rgba(150, 200, 255, 0.2); /* Dark mode subtle blue */
+            color: rgba(120, 160, 255, 0.4); /* Adjusted dark mode color */
         }
 
-        /* Custom Animations */
         .fade-in-up {
             opacity: 0;
             transform: translateY(20px);
@@ -77,7 +74,7 @@
             <div class="flex items-center space-x-4 md:space-x-6">
                 <a href="#about" class="text-sm md:text-base font-medium hover:text-blue-500 transition-colors">About</a>
                 <a href="#projects" class="text-sm md:text-base font-medium hover:text-blue-500 transition-colors">Projects</a>
-                <a href="#contact" class="text-sm md::text-base font-medium hover:text-blue-500 transition-colors">Contact</a>
+                <a href="#contact" class="text-sm md:text-base font-medium hover:text-blue-500 transition-colors">Contact</a>
                 <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
                     <svg id="sun-icon" class="h-6 w-6 text-yellow-500 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -121,7 +118,6 @@
                 </div>
                 <div class="w-full h-full rounded-2xl overflow-hidden shadow-lg animate-pulse bg-gray-300 dark:bg-gray-700">
                     <img src="" alt="A professional headshot of the developer" class="w-full h-full object-cover rounded-2xl opacity-0 transition-opacity duration-1000" onload="this.style.opacity=1;">
-                </div>
             </div>
         </section>
 
@@ -166,7 +162,7 @@
     </footer>
 
     <script>
-        // Theme Toggle - no change needed, it's perfect
+        // Theme Toggle
         const themeToggleBtn = document.getElementById('theme-toggle');
         const sunIcon = document.getElementById('sun-icon');
         const moonIcon = document.getElementById('moon-icon');
@@ -224,20 +220,18 @@
         // Raining Code Animation Logic
         const canvas = document.getElementById('raining-code-canvas');
         const phrases = ["Metagie", "0101", "dev", "<code/>", "{data}", "sync", "UX/UI", "creative"];
-        const numDrops = 50; // Number of simultaneous "drops"
-        const dropSpeed = 15; // Lower is faster
-        const dropVariance = 10; // How much speed varies
+        const numDrops = 50;
+        const dropSpeed = 15;
+        const dropVariance = 10;
 
         function createDrop() {
             const drop = document.createElement('span');
             drop.classList.add('code-drop');
-            // Randomly pick a phrase
             drop.textContent = phrases[Math.floor(Math.random() * phrases.length)];
             
-            // Random start position and delay
             const startX = Math.random() * window.innerWidth;
-            const startY = -Math.random() * window.innerHeight; // Start off-screen
-            const delay = Math.random() * 5; // Stagger appearance
+            const startY = -Math.random() * window.innerHeight;
+            const delay = Math.random() * 5;
 
             drop.style.left = `${startX}px`;
             drop.style.top = `${startY}px`;
@@ -245,58 +239,53 @@
 
             canvas.appendChild(drop);
 
-            // Animate the drop
             let currentY = startY;
             let currentX = startX;
-            const speed = dropSpeed + (Math.random() * dropVariance - dropVariance / 2); // Speed with variance
-            const lifeTime = (window.innerHeight - startY) / (window.innerHeight / speed); // Calculate lifetime based on speed
+            const speed = dropSpeed + (Math.random() * dropVariance - dropVariance / 2);
+            const lifeTime = (window.innerHeight - startY) / (window.innerHeight / speed);
 
             let animationFrame;
             const animateDrop = () => {
-                currentY += 1; // Move down
-                // Add a subtle horizontal "circuit" drift
-                currentX += Math.sin(currentY * 0.05) * 0.1; 
+                currentY += 1;
+                currentX += Math.sin(currentY * 0.05) * 0.1;
 
                 drop.style.top = `${currentY}px`;
                 drop.style.left = `${currentX}px`;
 
-                // Fade out as it goes down
-                const opacity = 0.15 * (1 - (currentY / window.innerHeight));
-                drop.style.opacity = Math.max(0, opacity);
+                // Fade out as it goes down (adjusted for less fading)
+                const opacity = 0.4 * (1 - (currentY / window.innerHeight));
+                drop.style.opacity = Math.max(0.1, opacity);
                 
                 // Shrink as it goes down
-                const scale = 1 - (currentY / (window.innerHeight * 1.5)); // Shrink more slowly
+                const scale = 1 - (currentY / (window.innerHeight * 1.5));
                 drop.style.transform = `scale(${Math.max(0.2, scale)})`;
 
-
-                if (currentY < window.innerHeight + 50) { // Keep animating until off-screen
+                if (currentY < window.innerHeight + 50) {
                     animationFrame = requestAnimationFrame(animateDrop);
                 } else {
-                    drop.remove(); // Remove element once it's off screen
-                    createDrop(); // Create a new one to keep the rain going
+                    drop.remove();
+                    createDrop();
                 }
             };
             animationFrame = requestAnimationFrame(animateDrop);
         }
 
-        // Initialize the rain
         for (let i = 0; i < numDrops; i++) {
             createDrop();
         }
 
-        // Handle theme change for code drops
         const updateCodeDropColors = () => {
             const isDarkMode = html.classList.contains('dark');
             document.querySelectorAll('.code-drop').forEach(drop => {
                 if (isDarkMode) {
-                    drop.style.color = 'rgba(150, 200, 255, 0.2)';
+                    drop.style.color = 'rgba(120, 160, 255, 0.4)';
                 } else {
-                    drop.style.color = 'rgba(100, 100, 255, 0.4)';
+                    drop.style.color = 'rgba(60, 100, 255, 0.6)';
                 }
             });
         };
         themeToggleBtn.addEventListener('click', updateCodeDropColors);
-        updateCodeDropColors(); // Set initial colors
+        updateCodeDropColors();
     </script>
 </body>
 </html>
