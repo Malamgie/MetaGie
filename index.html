@@ -14,17 +14,31 @@
             transition: background-color 0.5s, color 0.5s;
         }
 
-        .light .bg-base { background-color: #f0f2f5; }
-        .light .bg-card { background-color: #ffffff; }
-        .light .text-base { color: #1e293b; }
-        .light .text-muted { color: #64748b; }
-        .light .border-primary { border-color: #3b82f6; }
+        /* Lightning Background Effect */
+        .lightning-bg {
+            background-color: #f0f2f5; /* Light mode base color */
+            background-image: radial-gradient(circle at 15% 50%, rgba(200, 200, 255, 0.1), transparent 50%),
+                              radial-gradient(circle at 85% 50%, rgba(200, 200, 255, 0.1), transparent 50%);
+            background-size: 200% 200%;
+            animation: lightning-light 10s ease-in-out infinite;
+        }
 
-        .dark .bg-base { background-color: #1f2937; }
-        .dark .bg-card { background-color: #2d3748; }
-        .dark .text-base { color: #e2e8f0; }
-        .dark .text-muted { color: #a0aec0; }
-        .dark .border-primary { border-color: #5d6d8d; }
+        .dark .lightning-bg {
+            background-color: #1f2937; /* Dark mode base color */
+            background-image: radial-gradient(circle at 15% 50%, rgba(100, 100, 255, 0.1), transparent 50%),
+                              radial-gradient(circle at 85% 50%, rgba(100, 100, 255, 0.1), transparent 50%);
+            animation: lightning-dark 10s ease-in-out infinite;
+        }
+
+        @keyframes lightning-light {
+            0%, 100% { background-position: 0% 50%, 100% 50%; opacity: 1; }
+            50% { background-position: 100% 50%, 0% 50%; opacity: 0.9; }
+        }
+
+        @keyframes lightning-dark {
+            0%, 100% { background-position: 0% 50%, 100% 50%; opacity: 1; }
+            50% { background-position: 100% 50%, 0% 50%; opacity: 0.9; }
+        }
 
         /* Custom Animations */
         .fade-in-up {
@@ -40,7 +54,7 @@
         }
     </style>
 </head>
-<body class="bg-base text-base min-h-screen flex flex-col items-center">
+<body class="bg-base text-base min-h-screen flex flex-col items-center lightning-bg">
 
     <header class="w-full max-w-7xl mx-auto p-4 md:p-8 mt-4">
         <nav class="flex justify-between items-center bg-card shadow-lg rounded-full p-4">
@@ -62,7 +76,6 @@
     </header>
 
     <main class="w-full max-w-7xl mx-auto p-4 md:p-8 flex-grow">
-
         <section id="hero" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-16 md:py-24">
             <div class="fade-in-up md:text-left text-center">
                 <h2 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4 text-blue-500">
