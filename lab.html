@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>MetaGie Labs | Innovation, AI & Experimental Technology</title>
+    <meta name="title" content="MetaGie Labs | Innovation, AI & Experimental Technology">
+    <meta name="description" content="MetaGie Labs is the public innovation laboratory of MetaGie. We showcase experimental ideas, AI research, open-source projects, and future products.">
+    <meta name="keywords" content="AI innovation, Software engineering, Artificial intelligence, Prompt engineering, Open source, Experimental software, Web development, Automation, Firebase, Startup technology, Product innovation, Software research, Technology laboratory, AI consulting, Digital transformation">
+    <meta name="author" content="MetaGie">
+    <link rel="canonical" href="https://metagie.com/lab">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://metagie.com/lab">
+    <meta property="og:title" content="MetaGie Labs | Innovation, AI & Experimental Technology">
+    <meta property="og:description" content="Explore our experimental ideas, AI research, open-source projects, and future products at MetaGie Labs.">
+    <meta property="og:image" content="https://metagie.com/assets/og-labs.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://metagie.com/lab">
+    <meta property="twitter:title" content="MetaGie Labs | Innovation, AI & Experimental Technology">
+    <meta property="twitter:description" content="Explore our experimental ideas, AI research, open-source projects, and future products at MetaGie Labs.">
+    <meta property="twitter:image" content="https://metagie.com/assets/og-labs.jpg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#172554',
+                        },
+                        dark: {
+                            bg: '#050505',
+                            card: '#0a0a0a',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'spin-slow': 'spin 20s linear infinite',
+                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --glass-bg-light: rgba(255, 255, 255, 0.7);
+            --glass-bg-dark: rgba(10, 10, 10, 0.6);
+            --glass-border-light: rgba(0, 0, 0, 0.05);
+            --glass-border-dark: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Glassmorphism Utilities */
+        .glass {
+            background: var(--glass-bg-light);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border-light);
+        }
+        
+        .dark .glass {
+            background: var(--glass-bg-dark);
+            border: 1px solid var(--glass-border-dark);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+
+        /* Loading Screen */
+        #loader {
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            transform-origin: 0% 50%;
+            transform: scaleX(0);
+        }
+
+        /* Timeline Styles */
+        .timeline-line {
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, #3b82f6, transparent);
+        }
+
+        /* Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Text Gradients */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .gradient-primary {
+            background-image: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        }
+
+        /* Mesh Gradient Background */
+        .mesh-bg {
+            background-color: #050505;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30%,0.2) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30%,0.2) 0, transparent 50%);
+        }
+        
+        /* Interactive Card Hover */
+        .interactive-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .interactive-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .dark .interactive-card:hover {
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.8);
+        }
+    </style>
+
+    <!-- SEO Schemas -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "MetaGie",
+      "url": "https://metagie.com",
+      "logo": "https://metagie.com/logo.png",
+      "description": "Innovative technology company specializing in AI, software engineering, and digital transformation.",
+      "department": {
+        "@type": "Organization",
+        "name": "MetaGie Labs",
+        "description": "The public innovation laboratory of MetaGie showcasing experimental ideas and AI research."
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is MetaGie Labs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MetaGie Labs is the innovation division of MetaGie dedicated to exploring emerging technologies, building experimental products, and pushing the boundaries of software engineering and AI."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Are the projects open source?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Many of our experiments and foundational tools are open-sourced to contribute back to the developer community. Check our Open Source section for repositories."
+        }
+      }]
+    }
+    </script>
+</head>
+<body class="bg-slate-50 dark:bg-dark-bg text-slate-900 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col overflow-x-hidden">
+
+    <!-- Loading Screen -->
+    <div id="loader" class="fixed inset-0 z-[100] bg-white dark:bg-dark-bg flex items-center justify-center">
+        <div class="flex flex-col items-center gap-4">
+            <div class="relative w-12 h-12">
+                <div class="absolute inset-0 rounded-full border-t-2 border-brand-500 animate-spin"></div>
+                <div class="absolute inset-2 rounded-full border-r-2 border-purple-500 animate-spin-slow"></div>
+            </div>
+            <span class="text-sm font-mono tracking-widest text-slate-500 dark:text-slate-400">INITIALIZING LABS</span>
+        </div>
+    </div>
+
+    <!-- Scroll Progress -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-brand-500 to-purple-600 z-[60] w-full"></div>
+
+    <!-- Command Palette (Hidden by default) -->
+    <div id="cmd-palette" class="fixed inset-0 z-[70] hidden items-start justify-center pt-[10vh] px-4 backdrop-blur-sm bg-slate-900/40">
+        <div class="w-full max-w-2xl bg-white dark:bg-dark-card rounded-2xl shadow-2xl overflow-hidden border border-slate-200 dark:border-dark-border transform transition-all scale-95 opacity-0" id="cmd-modal">
+            <div class="p-4 border-b border-slate-200 dark:border-dark-border flex items-center gap-3">
+                <i data-lucide="search" class="w-5 h-5 text-slate-400"></i>
+                <input type="text" id="cmd-input" class="w-full bg-transparent border-none outline-none text-lg dark:text-white placeholder-slate-400" placeholder="Search experiments, docs, or navigate...">
+                <kbd class="hidden sm:inline-block px-2 py-1 text-xs font-mono bg-slate-100 dark:bg-slate-800 rounded text-slate-500 border border-slate-200 dark:border-slate-700">ESC</kbd>
+            </div>
+            <div class="max-h-96 overflow-y-auto p-2" id="cmd-results">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 glass transition-all duration-300 border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="text-2xl font-bold tracking-tighter">
+                        MetaGie <span class="text-brand-500 dark:text-brand-400 font-mono text-xl ml-1">Labs</span>
+                    </span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Home</a>
+                    <a href="#about" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">About</a>
+                    <a href="#projects" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Projects</a>
+                    <a href="blog.html" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Blog</a>
+                    <a href="#experiments" class="text-sm font-medium text-brand-600 dark:text-brand-400 border-b-2 border-brand-500 pb-1">Lab</a>
+                    <a href="#contact" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Contact</a>
+                </div>
+
+                <!-- Right Tools -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <button id="cmd-btn" class="flex items-center gap-2 px-3 py-1.5 rounded-md bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors text-sm text-slate-500 border border-slate-200 dark:border-dark-border" aria-label="Search">
+                        <i data-lucide="search" class="w-4 h-4"></i>
+                        <span>Search...</span>
+                        <span class="text-xs font-mono opacity-60">⌘K</span>
+                    </button>
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="p-2 rounded-md text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10" aria-expanded="false">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden) -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-dark-card border-b border-slate-200 dark:border-dark-border">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10">About</a>
+                <a href="#experiments" class="block px-3 py-2 rounded-md text-base font-medium text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/20">Lab</a>
+                <a href="blog.html" class="block px-3 py-2 rounded-md text-base font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10">Blog</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10">Contact</a>
+                <div class="mt-4 pt-4 border-t border-slate-200 dark:border-dark-border flex justify-between px-3">
+                    <span class="text-slate-500">Theme</span>
+                    <button id="mobile-theme-toggle" class="p-2 rounded-full bg-slate-100 dark:bg-white/10">
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        
+        <!-- Hero Section -->
+        <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden mesh-bg dark:text-white" id="home">
+            <!-- Animated Blobs Background -->
+            <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+            <div class="absolute top-0 -right-4 w-72 h-72 bg-brand-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+            <div class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+
+            <!-- Grid Overlay -->
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)]"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-600 dark:text-brand-300 text-sm font-medium mb-8 animate-fade-in-up">
+                    <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                    Public Innovation Laboratory
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 animate-fade-in-up" style="animation-delay: 0.1s;">
+                    MetaGie <span class="text-gradient gradient-primary">Labs</span>
+                </h1>
+                
+                <p class="mt-4 max-w-3xl mx-auto text-xl text-slate-600 dark:text-slate-300 animate-fade-in-up leading-relaxed" style="animation-delay: 0.2s;">
+                    Where ideas become experiments, experiments become products, and products become businesses.
+                </p>
+                
+                <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up" style="animation-delay: 0.3s;">
+                    <a href="#experiments" class="px-8 py-4 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold hover:scale-105 transition-transform flex items-center justify-center gap-2 shadow-lg shadow-brand-500/20">
+                        Explore Experiments <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                    <a href="#opensource" class="px-8 py-4 rounded-full glass font-semibold hover:bg-slate-100 dark:hover:bg-white/10 transition-colors flex items-center justify-center gap-2 border border-slate-200 dark:border-dark-border text-slate-900 dark:text-white">
+                        <i data-lucide="github" class="w-5 h-5"></i> View Open Source
+                    </a>
+                </div>
+
+                <!-- Live Metrics -->
+                <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto border-t border-slate-200/50 dark:border-white/10 pt-10 animate-fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="flex flex-col">
+                        <span class="text-3xl font-bold font-mono text-slate-900 dark:text-white metric-counter" data-target="24">0</span>
+                        <span class="text-sm text-slate-500 mt-1">Active Experiments</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-3xl font-bold font-mono text-slate-900 dark:text-white metric-counter" data-target="156">0</span>
+                        <span class="text-sm text-slate-500 mt-1">Prototypes Built</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-3xl font-bold font-mono text-slate-900 dark:text-white metric-counter" data-target="12">0</span>
+                        <span class="text-sm text-slate-500 mt-1">Open Source Repos</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-3xl font-bold font-mono text-slate-900 dark:text-white metric-counter" data-target="38">0</span>
+                        <span class="text-sm text-slate-500 mt-1">Research Notes</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What is MetaGie Labs -->
+        <section id="about" class="py-24 bg-white dark:bg-[#0a0a0f] relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div class="reveal">
+                        <h2 class="text-sm font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-3">Our Mission</h2>
+                        <h3 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-6">Pushing the boundaries of digital experiences.</h3>
+                        <p class="text-lg text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                            MetaGie Labs is the innovation division of MetaGie dedicated to exploring emerging technologies, validating bold ideas, building experimental products, and pushing the boundaries of software engineering, artificial intelligence, automation, and digital experiences.
+                        </p>
+                        <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed border-l-4 border-brand-500 pl-4 italic dark:bg-white/5 p-4 rounded-r-lg">
+                            "Every prototype represents a learning opportunity, and every experiment contributes to building better products for tomorrow."
+                        </p>
+                    </div>
+                    <div class="relative reveal h-full min-h-[400px] rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-900 dark:to-black border border-slate-200 dark:border-dark-border p-8 overflow-hidden shadow-2xl flex items-center justify-center group">
+                        <!-- Abstract Tech Visual -->
+                        <div class="absolute inset-0 opacity-20 dark:opacity-40" style="background-image: radial-gradient(circle at 2px 2px, rgba(59, 130, 246, 0.4) 1px, transparent 0); background-size: 24px 24px;"></div>
+                        
+                        <div class="relative z-10 w-full max-w-sm glass rounded-xl p-6 shadow-2xl transform transition-transform group-hover:scale-105 duration-500">
+                            <div class="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4 mb-4">
+                                <div class="flex space-x-2">
+                                    <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                    <div class="w-3 h-3 rounded-full bg-amber-400"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                                </div>
+                                <span class="text-xs font-mono text-slate-500">sandbox.js</span>
+                            </div>
+                            <pre class="font-mono text-sm text-slate-700 dark:text-slate-300 overflow-x-auto"><code class="language-javascript">
+const metaGie = new Labs();
+
+async function innovate() {
+  const idea = await Research.explore();
+  const prototype = Builder.create(idea);
+  
+  if (prototype.isValid()) {
+    return Product.launch(prototype);
+  }
+  
+  return Iteration.learn();
+}
+
+innovate();
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Experiments -->
+        <section id="experiments" class="py-24 bg-slate-50 dark:bg-dark-bg border-t border-slate-200 dark:border-dark-border">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 reveal">
+                    <div>
+                        <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">Featured Experiments</h2>
+                        <p class="text-slate-600 dark:text-slate-400 max-w-2xl">A curated collection of our active research, beta products, and exploratory software prototypes.</p>
+                    </div>
+                    
+                    <!-- Search and Filters -->
+                    <div class="mt-6 md:mt-0 flex flex-col sm:flex-row gap-4">
+                        <div class="relative">
+                            <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                            <input type="text" id="exp-search" placeholder="Search experiments..." class="pl-10 pr-4 py-2 w-full sm:w-64 rounded-full border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 dark:text-white transition-shadow">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Pills -->
+                <div class="flex flex-wrap gap-2 mb-10 reveal" id="exp-filters">
+                    <button class="filter-btn active px-4 py-1.5 rounded-full text-sm font-medium border border-slate-200 dark:border-dark-border bg-slate-900 text-white dark:bg-white dark:text-slate-900 transition-colors" data-filter="all">All</button>
+                    <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors" data-filter="Concept">Concept</button>
+                    <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors" data-filter="Research">Research</button>
+                    <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors" data-filter="Building">Building</button>
+                    <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors" data-filter="Beta">Beta</button>
+                    <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-card text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors" data-filter="Released">Released</button>
+                </div>
+
+                <!-- Experiments Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="experiments-grid">
+                    <!-- Populated by JavaScript to maintain clean structure, but with semantic setup -->
+                </div>
+                
+                <div class="mt-12 text-center reveal">
+                    <button id="load-more-btn" class="px-6 py-3 rounded-full glass border border-slate-200 dark:border-dark-border text-slate-900 dark:text-white font-medium hover:bg-slate-100 dark:hover:bg-white/10 transition-colors">
+                        Load More Experiments
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Section -->
+        <section id="research" class="py-24 bg-white dark:bg-[#0a0a0f]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-sm font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-3">Technical Literature</h2>
+                    <h3 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">Research & Insights</h3>
+                    <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">In-depth technical papers, architecture decisions, and studies conducted by the MetaGie engineering team.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="research-grid">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Open Source -->
+        <section id="opensource" class="py-24 bg-slate-900 text-white relative overflow-hidden">
+            <!-- Background Decoration -->
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-brand-500 via-transparent to-transparent"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-12 reveal">
+                    <div>
+                        <h2 class="text-4xl font-bold mb-4 flex items-center gap-3">
+                            <i data-lucide="github" class="w-10 h-10"></i> Open Source
+                        </h2>
+                        <p class="text-slate-400 max-w-xl">We believe in building in public. Here are the tools, libraries, and frameworks we've released to the community.</p>
+                    </div>
+                    <a href="#" class="mt-6 md:mt-0 px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors flex items-center gap-2 backdrop-blur-sm border border-white/10">
+                        Visit our GitHub <i data-lucide="external-link" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6" id="oss-grid">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Experiment Timeline -->
+        <section class="py-24 bg-slate-50 dark:bg-dark-bg border-y border-slate-200 dark:border-dark-border">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">The Innovation Process</h2>
+                    <p class="text-slate-600 dark:text-slate-400">How an idea evolves inside MetaGie Labs.</p>
+                </div>
+
+                <div class="relative">
+                    <!-- Vertical Line -->
+                    <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-slate-300 dark:bg-slate-700 md:-translate-x-1/2"></div>
+                    
+                    <div class="space-y-12" id="timeline-container">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA Section -->
+        <section class="py-24 relative overflow-hidden bg-white dark:bg-black">
+            <div class="absolute inset-0 mesh-bg opacity-30 dark:opacity-100"></div>
+            <div class="max-w-5xl mx-auto px-4 relative z-10 text-center reveal">
+                <h2 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Need an Innovative Technology Partner?</h2>
+                <p class="text-xl text-slate-600 dark:text-slate-300 mb-10 max-w-3xl mx-auto">
+                    Whether you're building an AI product, automating business operations, designing a modern web application, or validating a startup idea, MetaGie can help turn your vision into reality.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#" class="px-8 py-4 rounded-full bg-brand-600 text-white font-semibold hover:bg-brand-700 transition-colors shadow-lg shadow-brand-500/30">Start a Project</a>
+                    <a href="#" class="px-8 py-4 rounded-full glass border border-slate-300 dark:border-dark-border text-slate-900 dark:text-white font-semibold hover:bg-slate-100 dark:hover:bg-white/10 transition-colors">Book a Consultation</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-24 bg-slate-50 dark:bg-dark-bg border-t border-slate-200 dark:border-dark-border">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-12 reveal">Frequently Asked Questions</h2>
+                
+                <div class="space-y-4" id="faq-container">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-[#050505] border-t border-slate-200 dark:border-white/10 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div class="lg:col-span-1">
+                    <span class="text-2xl font-bold tracking-tighter text-slate-900 dark:text-white block mb-4">
+                        MetaGie
+                    </span>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Building intelligent software, designing premium experiences, and exploring the future of technology.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-slate-400 hover:text-brand-500 transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                        <a href="#" class="text-slate-400 hover:text-brand-500 transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+                        <a href="#" class="text-slate-400 hover:text-brand-500 transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-slate-900 dark:text-white font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a href="#" class="hover:text-brand-500 transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition-colors">Services</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition-colors">Projects</a></li>
+                        <li><a href="blog.html" class="hover:text-brand-500 transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-slate-900 dark:text-white font-semibold mb-4">Labs</h4>
+                    <ul class="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a href="#experiments" class="hover:text-brand-500 transition-colors">Experiments</a></li>
+                        <li><a href="#research" class="hover:text-brand-500 transition-colors">Research Papers</a></li>
+                        <li><a href="#opensource" class="hover:text-brand-500 transition-colors">Open Source</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition-colors">Design System</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-slate-900 dark:text-white font-semibold mb-4">Newsletter</h4>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-4">Get updates on our latest research and open source projects.</p>
+                    <form class="flex" onsubmit="event.preventDefault(); showToast('Subscribed successfully!');">
+                        <input type="email" placeholder="Enter your email" class="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-l-md px-3 py-2 text-sm w-full focus:outline-none focus:border-brand-500 text-slate-900 dark:text-white" required>
+                        <button type="submit" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-r-md text-sm font-medium transition-colors">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-200 dark:border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-slate-500 text-sm mb-4 md:mb-0">&copy; <span id="year"></span> MetaGie. All rights reserved.</p>
+                <div class="flex space-x-4 text-sm text-slate-500">
+                    <a href="#" class="hover:text-brand-500 transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-brand-500 transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 p-3 rounded-full bg-brand-600 text-white shadow-lg shadow-brand-500/30 transform translate-y-20 opacity-0 transition-all duration-300 z-50 hover:bg-brand-700">
+        <i data-lucide="arrow-up" class="w-5 h-5"></i>
+    </button>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-[80] flex flex-col gap-2"></div>
+
+    <!-- Application JavaScript -->
+    <script>
+        // Data Configuration (Fulfilling the 24 requested placeholders & more)
+        const LAB_DATA = {
+            experiments: [
+                { id: 'exp-01', title: 'AI Prompt Optimizer', status: 'Beta', tech: ['OpenAI', 'Next.js', 'Tailwind'], desc: 'A tool that automatically refines and optimizes prompts for LLMs to reduce hallucination and improve accuracy.', category: 'AI' },
+                { id: 'exp-02', title: 'MetaPrompts AI', status: 'Released', tech: ['React', 'Python', 'FastAPI'], desc: 'Library of dynamic meta-prompts for system instructions, tailored for complex reasoning tasks.', category: 'AI' },
+                { id: 'exp-03', title: 'AI Website Generator', status: 'Building', tech: ['Vue', 'Node.js', 'GPT-4V'], desc: 'Generates complete, styled HTML/CSS/JS files directly from a wireframe sketch or text description.', category: 'Web' },
+                { id: 'exp-04', title: 'Voice AI Assistant', status: 'Research', tech: ['WebRTC', 'Whisper', 'TTS'], desc: 'Low-latency browser-based voice assistant for hands-free navigation of complex web applications.', category: 'HCI' },
+                { id: 'exp-05', title: 'Smart Business Dashboard', status: 'Concept', tech: ['D3.js', 'Firebase', 'React'], desc: 'Predictive analytics dashboard that suggests business decisions based on real-time data streams.', category: 'Automation' },
+                { id: 'exp-06', title: 'AI Meeting Notes', status: 'Archived', tech: ['Web Audio API', 'Node'], desc: 'Local-first meeting transcription and summarization tool. Archived due to superior native OS features.', category: 'Productivity' },
+                { id: 'exp-07', title: 'Prompt Marketplace', status: 'Building', tech: ['Next.js', 'Supabase', 'Stripe'], desc: 'A decentralized marketplace for buying and selling highly specialized enterprise prompts.', category: 'SaaS' },
+                { id: 'exp-08', title: 'AI Resume Analyzer', status: 'Beta', tech: ['Python', 'NLP', 'React'], desc: 'Matches candidate resumes against job descriptions with percentage scoring and missing skill analysis.', category: 'HR Tech' },
+                { id: 'exp-09', title: 'AI Business Consultant', status: 'Research', tech: ['LangChain', 'OpenAI API'], desc: 'Agentic workflow simulating a McKinsey consultant to analyze business plans and financials.', category: 'AI' },
+                { id: 'exp-10', title: 'Startup Validation Tool', status: 'Concept', tech: ['Svelte', 'Firebase'], desc: 'Generates landing pages, ad copy, and survey forms automatically to test startup ideas rapidly.', category: 'Tools' },
+                { id: 'exp-11', title: 'Visual Prompt Builder', status: 'Released', tech: ['React Flow', 'Zustand'], desc: 'Node-based GUI for constructing complex prompt chains and logical flows without coding.', category: 'AI' },
+                { id: 'exp-12', title: 'AI Research Engine', status: 'Building', tech: ['Vector DB', 'RAG', 'Next.js'], desc: 'Semantic search engine that synthesizes answers across millions of academic papers simultaneously.', category: 'Research' },
+                { id: 'exp-13', title: 'Code Assistant', status: 'Beta', tech: ['VS Code API', 'LLaMA'], desc: 'Local, privacy-focused coding assistant that runs entirely on-device without internet access.', category: 'DevTools' },
+                { id: 'exp-14', title: 'Document Intelligence', status: 'Released', tech: ['OCR', 'Transformers'], desc: 'Extracts structured JSON data from unstructured PDFs, invoices, and hand-written notes.', category: 'Automation' },
+                { id: 'exp-15', title: 'Web Perf Analyzer', status: 'Concept', tech: ['Puppeteer', 'Lighthouse'], desc: 'Continuous CI/CD pipeline integration to monitor Core Web Vitals and suggest code fixes.', category: 'Web' },
+                { id: 'exp-16', title: 'AI SEO Generator', status: 'Building', tech: ['OpenAI', 'Next.js'], desc: 'Automatically generates programmatic SEO pages, schemas, and interlinking structures.', category: 'Marketing' },
+                { id: 'exp-17', title: 'Productivity Assistant', status: 'Research', tech: ['Electron', 'Rust'], desc: 'Desktop app that monitors screen activity (opt-in) to calculate deep work metrics and block distractions.', category: 'Productivity' },
+                { id: 'exp-18', title: 'AI Customer Support', status: 'Beta', tech: ['WebSockets', 'Vector DB'], desc: 'Omnichannel support bot that resolves 80% of L1 tickets by searching internal documentation.', category: 'SaaS' },
+                { id: 'exp-19', title: 'Firebase Toolkit', status: 'Released', tech: ['Firebase', 'TypeScript'], desc: 'Collection of cloud functions and security rules templates for rapidly scaling Firebase apps.', category: 'DevTools' },
+                { id: 'exp-20', title: 'MetaEscrow AI Features', status: 'Building', tech: ['Smart Contracts', 'AI'], desc: 'Integration of AI anomaly detection to prevent fraud in escrow transactions automatically.', category: 'FinTech' },
+                { id: 'exp-21', title: 'Future MetaGie OS', status: 'Concept', tech: ['WebAssembly', 'Canvas'], desc: 'Exploratory WebOS interface fully operating within a browser tab using advanced window management.', category: 'HCI' },
+                { id: 'exp-22', title: 'Experimental UI', status: 'Released', tech: ['CSS3', 'Framer Motion'], desc: 'Library of highly interactive, physics-based UI components (springs, fluid tabs, magnetic buttons).', category: 'Design' },
+                { id: 'exp-23', title: 'Future SaaS Ideas', status: 'Research', tech: ['Market Analysis'], desc: 'Internal database evaluating micro-SaaS opportunities based on Reddit and Twitter sentiment analysis.', category: 'Research' },
+                { id: 'exp-24', title: 'Innovation Sandbox', status: 'Active', tech: ['HTML5', 'Vanilla JS'], desc: 'The very page you are looking at. A testbed for no-framework, high-performance web architecture.', category: 'Web' }
+            ],
+            research: [
+                { title: 'Mitigating Hallucinations in RAG Architectures', abstract: 'An analysis of chunking strategies and vector similarity thresholds to improve truthfulness in enterprise AI.', time: '12 min read', difficulty: 'Advanced', author: 'MetaGie AI Team', date: 'Aug 2024' },
+                { title: 'The Future of Vanilla JS in Enterprise', abstract: 'Why dropping heavy frameworks for standard Web Components can reduce bundle sizes by 80% without losing developer velocity.', time: '8 min read', difficulty: 'Intermediate', author: 'Frontend Engineering', date: 'Jul 2024' },
+                { title: 'Firebase Security at Scale', abstract: 'Designing custom claims, role-based access control (RBAC), and robust security rules for multi-tenant SaaS applications.', time: '15 min read', difficulty: 'Advanced', author: 'Cloud Architecture', date: 'Jun 2024' },
+                { title: 'Micro-animations & Cognitive Load', abstract: 'A UX study on how subtle spring animations improve user comprehension of state changes in complex dashboards.', time: '6 min read', difficulty: 'Beginner', author: 'Design Team', date: 'May 2024' }
+            ],
+            opensource: [
+                { repo: 'meta-prompt-lib', stars: '1.2k', forks: '234', issues: '12', desc: 'A standard library of verified system prompts.', tech: ['Markdown', 'Python'] },
+                { repo: 'firebase-saas-starter', stars: '850', forks: '120', issues: '5', desc: 'Boilerplate for setting up scalable SaaS apps on Firebase.', tech: ['TypeScript', 'Node.js'] },
+                { repo: 'vanilla-glass-ui', stars: '3.4k', forks: '402', issues: '28', desc: 'Zero-dependency CSS/JS library for glassmorphism.', tech: ['CSS', 'JavaScript'] }
+            ],
+            timeline: [
+                { phase: '01. Idea', title: 'Hypothesis Generation', desc: 'Identifying market gaps, technical challenges, or new API capabilities.', side: 'left' },
+                { phase: '02. Research', title: 'Feasibility Study', desc: 'Evaluating constraints, costs, and existing solutions in the space.', side: 'right' },
+                { phase: '03. Prototype', title: 'Rapid Building', desc: 'Developing a bare-bones MVP in days, not weeks, to test core mechanics.', side: 'left' },
+                { phase: '04. Testing', title: 'Internal Validation', desc: 'Dogfooding the prototype internally to find friction points.', side: 'right' },
+                { phase: '05. Iteration', title: 'Refinement', desc: 'Improving UI/UX, performance, and addressing edge cases.', side: 'left' },
+                { phase: '06. Launch', title: 'Public Beta', desc: 'Releasing to a limited audience or as an open-source project.', side: 'right' }
+            ],
+            faqs: [
+                { q: 'What is MetaGie Labs?', a: 'MetaGie Labs is the innovation division of MetaGie. It operates as an internal incubator where our engineers, designers, and researchers can explore experimental technologies, build prototypes, and publish research without the constraints of immediate commercial viability.' },
+                { q: 'Can I collaborate with MetaGie Labs?', a: 'Yes! We actively collaborate with academic researchers, open-source contributors, and forward-thinking enterprises. Reach out via our contact page.' },
+                { q: 'Are the projects open source?', a: 'Many of them are. We believe in advancing the tech community. Tools that are broadly useful to developers are typically released under MIT or Apache 2.0 licenses on our GitHub.' },
+                { q: 'Can businesses sponsor research?', a: 'Absolutely. We partner with enterprises to conduct specialized R&D, build proof-of-concepts, and explore how emerging technologies (like LLMs or automation) can solve their specific industry challenges.' },
+                { q: 'Do you build MVPs for startups?', a: 'Yes. The rapid prototyping methodologies developed in MetaGie Labs form the foundation of our client services. We regularly help founders build, validate, and scale their MVPs.' }
+            ]
+        };
+
+        const STATUS_COLORS = {
+            'Concept': 'bg-slate-100 text-slate-700 dark:bg-white/10 dark:text-slate-300 border-slate-200 dark:border-white/20',
+            'Research': 'bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-300 border-purple-200 dark:border-purple-500/20',
+            'Building': 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-300 border-amber-200 dark:border-amber-500/20',
+            'Beta': 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-300 border-blue-200 dark:border-blue-500/20',
+            'Released': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300 border-emerald-200 dark:border-emerald-500/20',
+            'Archived': 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-300 border-red-200 dark:border-red-500/20'
+        };
+
+        let displayedExperiments = 6;
+        let currentFilter = 'all';
+        let searchQuery = '';
+        let bookmarked = JSON.parse(localStorage.getItem('metagie_bookmarks') || '[]');
+
+        // Initialize Application
+        document.addEventListener('DOMContentLoaded', () => {
+            initIcons();
+            initTheme();
+            renderExperiments();
+            renderResearch();
+            renderOpenSource();
+            renderTimeline();
+            renderFAQs();
+            setupEventListeners();
+            setupIntersectionObserver();
+            document.getElementById('year').textContent = new Date().getFullYear();
+            
+            // Remove Loader
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 500);
+            }, 800);
+        });
+
+        // Initialize Lucide Icons
+        function initIcons() {
+            lucide.createIcons();
+        }
+
+        // Theme Management
+        function initTheme() {
+            const html = document.documentElement;
+            const themeToggles = [document.getElementById('theme-toggle'), document.getElementById('mobile-theme-toggle')];
+            
+            // Check local storage or system preference
+            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else {
+                html.classList.remove('dark');
+            }
+
+            themeToggles.forEach(toggle => {
+                if(toggle) {
+                    toggle.addEventListener('click', () => {
+                        html.classList.toggle('dark');
+                        if (html.classList.contains('dark')) {
+                            localStorage.setItem('theme', 'dark');
+                        } else {
+                            localStorage.setItem('theme', 'light');
+                        }
+                    });
+                }
+            });
+        }
+
+        // Render Functions
+        function renderExperiments() {
+            const grid = document.getElementById('experiments-grid');
+            grid.innerHTML = '';
+            
+            let filtered = LAB_DATA.experiments.filter(exp => {
+                const matchesFilter = currentFilter === 'all' || exp.status === currentFilter;
+                const matchesSearch = exp.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      exp.desc.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesFilter && matchesSearch;
+            });
+
+            const toShow = filtered.slice(0, displayedExperiments);
+            
+            if (toShow.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-slate-500">No experiments found matching your criteria.</div>`;
+            }
+
+            toShow.forEach(exp => {
+                const isBookmarked = bookmarked.includes(exp.id);
+                const card = document.createElement('div');
+                card.className = `interactive-card glass rounded-2xl overflow-hidden flex flex-col h-full`;
+                card.innerHTML = `
+                    <div class="h-48 bg-slate-200 dark:bg-white/5 relative overflow-hidden flex items-center justify-center group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-brand-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <i data-lucide="flask-conical" class="w-12 h-12 text-slate-400 dark:text-slate-600 group-hover:scale-110 transition-transform duration-500"></i>
+                        <button onclick="toggleBookmark('${exp.id}')" class="absolute top-4 right-4 p-2 rounded-full bg-white/50 dark:bg-black/50 backdrop-blur-md hover:bg-white dark:hover:bg-white/20 transition-colors z-10" aria-label="Bookmark">
+                            <i data-lucide="bookmark" class="w-4 h-4 ${isBookmarked ? 'fill-brand-500 text-brand-500' : 'text-slate-600 dark:text-white'} bookmark-icon-${exp.id}"></i>
+                        </button>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-2.5 py-1 text-xs font-semibold rounded-full border ${STATUS_COLORS[exp.status]}">${exp.status}</span>
+                            <span class="text-xs text-slate-500 font-mono">${exp.tech[0]}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">${exp.title}</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-6 flex-grow">${exp.desc}</p>
+                        
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-white/10 mt-auto">
+                            <button onclick="showToast('Loading documentation...')" class="text-sm font-medium text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 flex items-center gap-1">
+                                Read Docs <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                            <div class="flex gap-2">
+                                <button onclick="showToast('Opening GitHub repo...')" class="p-2 rounded-md hover:bg-slate-100 dark:hover:bg-white/10 text-slate-500 transition-colors" title="View Source">
+                                    <i data-lucide="github" class="w-4 h-4"></i>
+                                </button>
+                                <button onclick="showToast('Launching Demo...')" class="p-2 rounded-md hover:bg-slate-100 dark:hover:bg-white/10 text-slate-500 transition-colors" title="Live Demo">
+                                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            // Handle Load More Button
+            const loadBtn = document.getElementById('load-more-btn');
+            if (filtered.length <= displayedExperiments) {
+                loadBtn.style.display = 'none';
+            } else {
+                loadBtn.style.display = 'inline-block';
+            }
+
+            initIcons();
+        }
+
+        function renderResearch() {
+            const grid = document.getElementById('research-grid');
+            LAB_DATA.research.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'glass rounded-2xl p-8 hover:-translate-y-1 transition-transform duration-300';
+                card.innerHTML = `
+                    <div class="flex flex-wrap items-center gap-3 text-xs font-mono text-slate-500 mb-4">
+                        <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> ${item.date}</span>
+                        <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3"></i> ${item.time}</span>
+                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">${item.difficulty}</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-3">${item.title}</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">${item.abstract}</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300">${item.author}</span>
+                        <button onclick="showToast('Downloading PDF...')" class="flex items-center gap-2 text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline">
+                            <i data-lucide="download" class="w-4 h-4"></i> PDF
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function renderOpenSource() {
+            const grid = document.getElementById('oss-grid');
+            LAB_DATA.opensource.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors backdrop-blur-sm';
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="text-lg font-bold flex items-center gap-2">
+                            <i data-lucide="book-open" class="w-5 h-5 text-brand-400"></i> ${item.repo}
+                        </h4>
+                    </div>
+                    <p class="text-sm text-slate-400 mb-6">${item.desc}</p>
+                    <div class="flex items-center gap-4 text-sm text-slate-300 mb-6">
+                        <span class="flex items-center gap-1"><i data-lucide="star" class="w-4 h-4 text-amber-400"></i> ${item.stars}</span>
+                        <span class="flex items-center gap-1"><i data-lucide="git-fork" class="w-4 h-4"></i> ${item.forks}</span>
+                        <span class="flex items-center gap-1"><i data-lucide="circle-dot" class="w-4 h-4 text-green-400"></i> ${item.issues}</span>
+                    </div>
+                    <div class="flex justify-between items-center pt-4 border-t border-white/10">
+                        <div class="flex gap-2">
+                            ${item.tech.map(t => `<span class="text-xs font-mono bg-white/10 px-2 py-1 rounded">${t}</span>`).join('')}
+                        </div>
+                        <button onclick="showToast('Navigating to GitHub...')" class="p-2 hover:bg-white/10 rounded-full transition-colors"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function renderTimeline() {
+            const container = document.getElementById('timeline-container');
+            LAB_DATA.timeline.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = `relative flex items-center justify-between md:justify-normal w-full reveal ${item.side === 'right' ? 'md:flex-row-reverse' : ''}`;
+                
+                div.innerHTML = `
+                    <!-- Order element for mobile -->
+                    <div class="hidden md:block w-5/12"></div>
+                    
+                    <!-- Line dot -->
+                    <div class="z-20 flex items-center order-1 bg-brand-500 shadow-xl w-8 h-8 rounded-full md:mx-auto md:absolute md:left-1/2 md:-translate-x-1/2 border-4 border-slate-50 dark:border-dark-bg">
+                        <h1 class="mx-auto font-semibold text-lg text-white"></h1>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div class="order-1 glass rounded-xl shadow-lg w-[calc(100%-3rem)] md:w-5/12 px-6 py-4">
+                        <span class="text-xs font-mono text-brand-600 dark:text-brand-400 mb-1 block">${item.phase}</span>
+                        <h3 class="mb-2 font-bold text-slate-900 dark:text-white text-lg">${item.title}</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-snug">${item.desc}</p>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function renderFAQs() {
+            const container = document.getElementById('faq-container');
+            LAB_DATA.faqs.forEach((faq, index) => {
+                const div = document.createElement('div');
+                div.className = 'glass rounded-xl overflow-hidden reveal border border-slate-200 dark:border-dark-border';
+                div.innerHTML = `
+                    <button class="w-full px-6 py-4 flex justify-between items-center text-left focus:outline-none" onclick="toggleFAQ(${index})">
+                        <span class="font-semibold text-slate-900 dark:text-white">${faq.q}</span>
+                        <i data-lucide="chevron-down" id="faq-icon-${index}" class="w-5 h-5 text-slate-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-answer-${index}" class="px-6 pb-4 hidden text-slate-600 dark:text-slate-400 text-sm leading-relaxed border-t border-slate-100 dark:border-white/5 pt-4">
+                        ${faq.a}
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Interaction Functions
+        function toggleFAQ(index) {
+            const answer = document.getElementById(`faq-answer-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
+            if (answer.classList.contains('hidden')) {
+                answer.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                answer.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function toggleBookmark(id) {
+            const index = bookmarked.indexOf(id);
+            if (index > -1) {
+                bookmarked.splice(index, 1);
+                showToast('Removed from bookmarks');
+            } else {
+                bookmarked.push(id);
+                showToast('Added to bookmarks');
+            }
+            localStorage.setItem('metagie_bookmarks', JSON.stringify(bookmarked));
+            
+            // Update UI
+            const icons = document.querySelectorAll(`.bookmark-icon-${id}`);
+            icons.forEach(icon => {
+                if (bookmarked.includes(id)) {
+                    icon.classList.add('fill-brand-500', 'text-brand-500');
+                    icon.classList.remove('text-slate-600', 'dark:text-white');
+                } else {
+                    icon.classList.remove('fill-brand-500', 'text-brand-500');
+                    icon.classList.add('text-slate-600', 'dark:text-white');
+                }
+            });
+        }
+
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-4 py-2 rounded-full text-sm font-medium shadow-lg flex items-center gap-2 transform translate-y-10 opacity-0 transition-all duration-300';
+            toast.innerHTML = `<i data-lucide="check-circle-2" class="w-4 h-4 text-green-400 dark:text-green-600"></i> ${message}`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            
+            // Animate in
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+            });
+
+            // Animate out
+            setTimeout(() => {
+                toast.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Event Listeners Setup
+        function setupEventListeners() {
+            // Scroll Progress & Sticky Nav
+            window.addEventListener('scroll', () => {
+                // Progress bar
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height);
+                document.getElementById('scroll-progress').style.transform = `scaleX(${scrolled})`;
+
+                // Nav styling
+                const nav = document.getElementById('navbar');
+                if (winScroll > 50) {
+                    nav.classList.add('shadow-md', 'dark:border-dark-border');
+                    nav.classList.remove('border-transparent');
+                } else {
+                    nav.classList.remove('shadow-md', 'dark:border-dark-border');
+                    nav.classList.add('border-transparent');
+                }
+
+                // Back to top button
+                const btt = document.getElementById('back-to-top');
+                if (winScroll > 500) {
+                    btt.classList.remove('translate-y-20', 'opacity-0');
+                } else {
+                    btt.classList.add('translate-y-20', 'opacity-0');
+                }
+            });
+
+            // Back to top click
+            document.getElementById('back-to-top').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Mobile Menu Toggle
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Filtering
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    // Update active state classes
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-slate-900', 'text-white', 'dark:bg-white', 'dark:text-slate-900');
+                        b.classList.add('bg-white', 'text-slate-600', 'dark:bg-dark-card', 'dark:text-slate-300');
+                    });
+                    e.target.classList.add('bg-slate-900', 'text-white', 'dark:bg-white', 'dark:text-slate-900');
+                    e.target.classList.remove('bg-white', 'text-slate-600', 'dark:bg-dark-card', 'dark:text-slate-300');
+                    
+                    currentFilter = e.target.getAttribute('data-filter');
+                    displayedExperiments = 6; // Reset count
+                    renderExperiments();
+                });
+            });
+
+            // Search
+            const searchInput = document.getElementById('exp-search');
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value;
+                displayedExperiments = 6; // Reset
+                renderExperiments();
+            });
+
+            // Load More
+            document.getElementById('load-more-btn').addEventListener('click', () => {
+                displayedExperiments += 6;
+                renderExperiments();
+            });
+
+            // Command Palette (Cmd+K)
+            const cmdPalette = document.getElementById('cmd-palette');
+            const cmdModal = document.getElementById('cmd-modal');
+            const cmdInput = document.getElementById('cmd-input');
+            const cmdResults = document.getElementById('cmd-results');
+            
+            const toggleCmd = (show) => {
+                if(show) {
+                    cmdPalette.classList.remove('hidden');
+                    cmdPalette.classList.add('flex');
+                    setTimeout(() => {
+                        cmdModal.classList.remove('scale-95', 'opacity-0');
+                        cmdInput.focus();
+                        populateCmdResults('');
+                    }, 10);
+                } else {
+                    cmdModal.classList.add('scale-95', 'opacity-0');
+                    setTimeout(() => {
+                        cmdPalette.classList.add('hidden');
+                        cmdPalette.classList.remove('flex');
+                        cmdInput.value = '';
+                    }, 200);
+                }
+            };
+
+            document.addEventListener('keydown', (e) => {
+                if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                    e.preventDefault();
+                    toggleCmd(cmdPalette.classList.contains('hidden'));
+                }
+                if (e.key === 'Escape' && !cmdPalette.classList.contains('hidden')) {
+                    toggleCmd(false);
+                }
+            });
+
+            document.getElementById('cmd-btn').addEventListener('click', () => toggleCmd(true));
+            cmdPalette.addEventListener('click', (e) => {
+                if (e.target === cmdPalette) toggleCmd(false);
+            });
+
+            cmdInput.addEventListener('input', (e) => populateCmdResults(e.target.value));
+
+            function populateCmdResults(query) {
+                const links = [
+                    { name: 'Home', url: 'index.html', icon: 'home' },
+                    { name: 'Blog', url: 'blog.html', icon: 'file-text' },
+                    { name: 'Experiments', url: '#experiments', icon: 'flask-conical' },
+                    { name: 'Research', url: '#research', icon: 'book-open' },
+                    { name: 'Open Source', url: '#opensource', icon: 'github' },
+                    { name: 'Contact', url: '#contact', icon: 'mail' },
+                ];
+                
+                // Add experiments to search
+                LAB_DATA.experiments.forEach(exp => {
+                    links.push({ name: `Experiment: ${exp.title}`, url: `#experiments`, icon: 'box', click: () => {
+                        document.getElementById('exp-search').value = exp.title;
+                        searchQuery = exp.title;
+                        renderExperiments();
+                        window.location.hash = 'experiments';
+                    }});
+                });
+
+                const filtered = links.filter(l => l.name.toLowerCase().includes(query.toLowerCase())).slice(0, 8);
+                
+                cmdResults.innerHTML = filtered.map((link, i) => `
+                    <a href="${link.url}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-colors cursor-pointer text-slate-700 dark:text-slate-300" onclick="document.getElementById('cmd-input').value='';">
+                        <i data-lucide="${link.icon}" class="w-4 h-4 text-slate-400"></i>
+                        <span>${link.name}</span>
+                    </a>
+                `).join('');
+                
+                lucide.createIcons();
+                
+                // Handle special click handlers
+                const resultElements = cmdResults.querySelectorAll('a');
+                filtered.forEach((link, i) => {
+                    if(link.click) {
+                        resultElements[i].addEventListener('click', (e) => {
+                            e.preventDefault();
+                            link.click();
+                            toggleCmd(false);
+                        });
+                    } else {
+                        resultElements[i].addEventListener('click', () => toggleCmd(false));
+                    }
+                });
+            }
+        }
+
+        // Intersection Observer for Animations and Counters
+        function setupIntersectionObserver() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        
+                        // Check if it's a counter
+                        if (entry.target.classList.contains('metric-counter') && !entry.target.hasAttribute('data-counted')) {
+                            animateCounter(entry.target);
+                            entry.target.setAttribute('data-counted', 'true');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal, .metric-counter').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Animate Counters
+        function animateCounter(el) {
+            const target = parseInt(el.getAttribute('data-target'));
+            const duration = 2000; // ms
+            const stepTime = Math.abs(Math.floor(duration / target));
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += Math.ceil(target / (duration / 50)); // speed algorithm
+                if (current >= target) {
+                    el.innerText = target + (target > 100 ? '+' : '');
+                    clearInterval(timer);
+                } else {
+                    el.innerText = current;
+                }
+            }, 50);
+        }
+    </script>
+</body>
+                      </html>
