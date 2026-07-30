@@ -2,7 +2,7 @@
 <urlset xmlns="http://sitemaps.org">
   <!-- Main Home Page -->
   <url>
-    <loc>https://github.io</loc>
+    <loc>https://malamgie.github.io/MetaGie/</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -10,7 +10,7 @@
 
   <!-- Blog Page -->
   <url>
-    <loc>https://github.ioblog.html</loc>
+    <loc>https://malamgie.github.io/MetaGie/blog.html</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -18,7 +18,7 @@
 
   <!-- Lab Page -->
   <url>
-    <loc>https://github.iolab.html</loc>
+    <loc>https://malamgie.github.io/MetaGie/lab.html</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
