@@ -1012,15 +1012,86 @@
 
             // Projects Data
             const projectsData = [
-                { id: 1, title: 'Larascollection', desc: 'Premium e-commerce platform for luxury fashion.', url: 'https://malamgie.github.io/Larascollection/', cat: 'ecommerce', tags: ['E-commerce', 'UI/UX'] },
-                { id: 2, title: 'MetaEscrow', desc: 'Secure digital escrow service platform.', url: 'https://malamgie.github.io/MetaEscrow/client/', cat: 'webapp', tags: ['Web App', 'Security'] },
-                { id: 3, title: 'MetaPrompts', desc: 'AI prompt engineering toolkit and marketplace.', url: 'https://malamgie.github.io/metagiepromts/', cat: 'ai', tags: ['AI', 'Tool'] },
-                { id: 4, title: 'MetaGie Innovations', desc: 'Corporate portal for innovation division.', url: 'https://malamgie.github.io/metagieinnovation/', cat: 'corporate', tags: ['Corporate', 'Portal'] },
-                { id: 5, title: 'SABR Textiles', desc: 'B2B platform for textile manufacturing.', url: 'https://malamgie.github.io/SABR_TEXTILE-77/', cat: 'corporate', tags: ['B2B', 'Manufacturing'] },
-                { id: 6, title: 'MOH ZANNAH GROUP', desc: 'Corporate website for conglomerate.', url: 'https://malamgie.github.io/mohzannah/', cat: 'corporate', tags: ['Corporate'] },
-                { id: 7, title: 'GMOH Realty', desc: 'Real estate listing and management platform.', url: 'https://malamgie.github.io/G-Moh-Realty/', cat: 'webapp', tags: ['Real Estate', 'Platform'] },
-                { id: 8, title: 'MetaGie IO', desc: 'Our legacy agency landing page.', url: 'https://malamgie.github.io/metagie.io/', cat: 'corporate', tags: ['Agency'] }
-            ];
+    {
+        id: 1,
+        title: 'Larascollection',
+        desc: 'Premium e-commerce platform for luxury fashion.',
+        url: 'https://malamgie.github.io/Larascollection/',
+        image: 'screenshots/larascollection.webp',
+        cat: 'ecommerce',
+        tags: ['E-commerce', 'UI/UX']
+    },
+
+    {
+        id: 2,
+        title: 'MetaEscrow',
+        desc: 'Secure digital escrow service platform.',
+        url: 'https://malamgie.github.io/MetaEscrow/client/',
+        image: 'screenshots/metaescrow.webp',
+        cat: 'webapp',
+        tags: ['Web App', 'Security']
+    },
+
+    {
+        id: 3,
+        title: 'MetaPrompts',
+        desc: 'AI prompt engineering toolkit and marketplace.',
+        url: 'https://malamgie.github.io/metagiepromts/',
+        image: 'screenshots/metaprompts.webp',
+        cat: 'ai',
+        tags: ['AI', 'Tool']
+    },
+
+    {
+        id: 4,
+        title: 'MetaGie Innovations',
+        desc: 'Corporate portal for innovation division.',
+        url: 'https://malamgie.github.io/metagieinnovation/',
+        image: 'screenshots/metagie-innovations.webp',
+        cat: 'corporate',
+        tags: ['Corporate', 'Portal']
+    },
+
+    {
+        id: 5,
+        title: 'SABR Textiles',
+        desc: 'B2B platform for textile manufacturing.',
+        url: 'https://malamgie.github.io/SABR_TEXTILE-77/',
+        image: 'screenshots/sabr-textiles.webp',
+        cat: 'corporate',
+        tags: ['B2B', 'Manufacturing']
+    },
+
+    {
+        id: 6,
+        title: 'MOH ZANNAH GROUP',
+        desc: 'Corporate website for conglomerate.',
+        url: 'https://malamgie.github.io/mohzannah/',
+        image: 'screenshots/moh-zannah.webp',
+        cat: 'corporate',
+        tags: ['Corporate']
+    },
+
+    {
+        id: 7,
+        title: 'GMOH Realty',
+        desc: 'Real estate listing and management platform.',
+        url: 'https://malamgie.github.io/G-Moh-Realty/',
+        image: 'screenshots/gmoh-realty.webp',
+        cat: 'webapp',
+        tags: ['Real Estate', 'Platform']
+    },
+
+    {
+        id: 8,
+        title: 'MetaGie IO',
+        desc: 'Our legacy agency landing page.',
+        url: 'https://malamgie.github.io/metagie.io/',
+        image: 'screenshots/metagie-io.webp',
+        cat: 'corporate',
+        tags: ['Agency']
+    }
+];
 
             const projectsGrid = document.getElementById('projects-grid');
             
@@ -1032,7 +1103,7 @@
                 filtered.forEach((project, index) => {
                     const delayClass = `reveal-delay-${(index % 3) + 1}`;
                     // Use a reliable placeholder service that generates an image representing the site
-                    const imgUrl = `https://placehold.co/800x600/0f172a/14b8a6?text=${project.title.replace(/ /g, '+')}`;
+                   const imgUrl = project.image;
                     
                     const card = document.createElement('div');
                     card.className = `group rounded-3xl overflow-hidden bg-white dark:bg-dark-card border border-gray-100 dark:border-white/5 premium-card cursor-hover reveal active ${delayClass}`;
@@ -1206,7 +1277,7 @@
                 modalLiveBtn.href = project.url;
                 
                 // For preview, using a long image to simulate scrolling page
-                modalImg.src = `https://placehold.co/1200x2400/0f172a/14b8a6?text=${project.title.replace(/ /g, '+')}+Preview`;
+                modalImg.src = project.image;
                 
                 modal.classList.remove('hidden');
                 // Small delay to allow display:block to apply before animating opacity/transform
